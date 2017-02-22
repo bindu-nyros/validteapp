@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+<table border="2px">
+<tr>
+	<th><strong>PCDT ID</strong></th>
+	<th><strong>Title</strong></th>
+	<th><strong>Description</strong></th>
+	<th><strong>Price</strong></th>
+	<th><strong>Quantity</strong></th>
+</tr>
+<tr>
+	<td><%= @product.id %></td>
+	<td><%= @product.title %></td>
+	<td><%= @product.description %></td>
+	<td><%= @product.price %></td>
+	<td><%= @product.quantity %></td>
+</tr>
+</table>
+<!-- <p>
+  <strong>Total:</strong>
+  <%= (@product.quantity *  @product.price) %>
+</p> -->
+
+<% vatrate = 15.0 %>
+<% running_total= 0 %>
+<% vatval = 0 %>
+
+<% running_total = (@product.quantity * @product.price) * 100.0 / (100.0 + vatrate) %>
+<% vatval = (@product.quantity *  @product.price) + running_total %>
+
+<p>
+	<strong>Product vat value:</strong>
+	<%= running_total %>
+</p>
+<p>
+	<strong>Product total:</strong>
+ 	<%= vatval %>
+</p>
+
+<%= link_to "Add new item", new_product_path(@product) %>
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
